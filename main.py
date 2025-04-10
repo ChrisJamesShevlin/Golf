@@ -34,23 +34,20 @@ def calculate_score():
     # Clamp score between 0 and 100
     score = max(0, min(score, 100))
     score_str = f"{score:.2f}"
-    
-    # Calculate a value metric if live odds are provided (must be > 0)
-    if live_odds > 0:
-        value_metric = score / live_odds
-    else:
-        value_metric = score  # Fallback in the unlikely case odds are zero
-    value_str = f"{value_metric:.2f}"
 
-    # Debug output printed to the terminal in the required format
-    print(f"Golfer: {name}, Overall Score: {score_str}, Live Odds: {live_odds:.2f}, Value Metric: {value_str}")
+    # Prepare output in table column format:
+    # Columns: Golfer | Overall Score | Live Odds
+    output_line = f"{name} | {score_str} | {live_odds:.2f}"
     
-    # Update the GUI to display the results as well
-    result_label.config(text=f"Golfer: {name}\nOverall Score: {score_str}\nLive Odds: {live_odds:.2f}\nValue Metric: {value_str}")
+    # Print output in terminal so you can copy/paste into your GPT prompt each day
+    print(output_line)
+    
+    # Update the GUI to display the result
+    result_label.config(text=output_line)
 
 # Create the main Tkinter window
 root = tk.Tk()
-root.title("Golf Overall Score Calculator")
+root.title("Odds Apex - Golf")
 
 # -------------------------
 # Define the input fields for each metric
